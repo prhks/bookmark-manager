@@ -2,6 +2,7 @@ const { AuthenticationError } = require("apollo-server");
 
 const Bookmark = require("../../models/Bookmark");
 const checkAuth = require("../../util/check-auth");
+const { argsToArgsConfig } = require("graphql/type/definition");
 
 module.exports = {
   Query: {
@@ -29,7 +30,10 @@ module.exports = {
   Mutation: {
     async createBookmark(_, { url }, context) {
       const user = checkAuth(context);
-      console.log(user);
+
+      if (args.url.trim() === "") {
+        throw new Error("Url must not be empty");
+      }
 
       const newBookmark = new Bookmark({
         url,
