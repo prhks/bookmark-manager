@@ -12,7 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^3.13.0",
+    "axios": "^1.7.6",
     "bcryptjs": "^2.4.3",
+    "cheerio": "^1.0.0",
     "graphql": "^16.9.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.4"
