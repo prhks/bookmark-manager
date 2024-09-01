@@ -48,9 +48,17 @@ function BookmarkSearch() {
             name="query"
             value={searchQuery}
             onChange={handleSearchChange}
-            error={error ? true : false}
             fluid
           />
+          {error && (
+            <div className="ui error message" style={{ marginTop: 10 }}>
+              <ul className="list">
+                {error.graphQLErrors.map((err, index) => (
+                  <li key={index}>{err.message}</li>
+                ))}
+              </ul>
+            </div>
+          )}
           <Button
             type="submit"
             color="teal"
@@ -65,7 +73,9 @@ function BookmarkSearch() {
       {error && (
         <div className="ui error message" style={{ marginBottom: 20 }}>
           <ul className="list">
-            <li>Error fetching bookmarks: {error.message}</li>
+            {error.graphQLErrors.map((err, index) => (
+              <li key={index}>{err.message}</li>
+            ))}
           </ul>
         </div>
       )}
