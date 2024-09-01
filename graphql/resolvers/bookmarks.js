@@ -28,6 +28,29 @@ module.exports = {
         throw new Error(err);
       }
     },
+    async searchBookmarks(_, { query }, context) {
+      const user = checkAuth(context);
+
+      try {
+        if (!query) {
+          throw new Error("Search query must not be empty");
+        }
+
+        // Perform the search operation using Mongoose
+        const bookmarks = await Bookmark.find({
+          title: { $regex: query, $options: "i" }, // Case-insensitive search
+        }).sort({ createdAt: -1 }); // Sort by creation date, descending
+
+        if (!bookmarks.length) {
+          throw new Error("No bookmarks found matching the query");
+        }
+
+        return bookmarks;
+      } catch (err) {
+        console.error("Error searching bookmarks:", err);
+        throw new Error("Error searching bookmarks");
+      }
+    },
   },
   Mutation: {
     async createBookmark(_, { url }, context) {

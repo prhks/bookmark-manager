@@ -9,3 +9,13 @@
   width: 400px;
   margin: auto;
 }
+
+.bookmark-column {
+  position: relative;
+  transition: transform 0.3s ease-in-out, z-index 0.3s ease-in-out;
+}
+
+.bookmark-column:hover {
+  transform: translateY(-10px);
+  z-index: 1;
+}

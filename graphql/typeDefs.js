@@ -26,6 +26,7 @@ module.exports = gql`
   type Query {
     getBookmarks: [Bookmark]
     getBookmark(bookmarkId: ID!): Bookmark
+    searchBookmarks(query: String!): [Bookmark]
   }
   type Mutation {
     register(registerInput: RegisterInput): User!
