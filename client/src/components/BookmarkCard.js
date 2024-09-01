@@ -13,19 +13,54 @@ import { Link } from "react-router-dom";
 
 function BookmarkCard({ bookmark: { image, url, title, description } }) {
   return (
-    <Card fluid>
-      <Image
-        src="https://react.semantic-ui.com/images/avatar/large/daniel.jpg"
-        wrapped
-        ui={false}
-      />
-      <CardContent>
-        <CardHeader>https://www.mongodb.com</CardHeader>
-        <CardMeta as={Link} to={`/bookmarks/${id}`}>
-          MongoDB
-        </CardMeta>
-        <CardDescription>The number one NoSQL for developers.</CardDescription>
-      </CardContent>
+    <Card fluidstyle={{ width: "300px", height: "400px", overflow: "hidden" }}>
+      <div
+        style={{
+          width: "100%",
+          height: "150px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "rgba(0, 128, 128, 0.1)",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <Image src={image} style={{ maxHeight: "100%", maxWidth: "100%" }} />
+      </div>
+      <Card.Content>
+        <Card.Header
+          style={{
+            fontSize: "16px",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {url}
+        </Card.Header>
+        <Card.Meta
+          style={{
+            fontSize: "14px",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {title}
+        </Card.Meta>
+        <Card.Description
+          style={{
+            fontSize: "12px",
+            height: "100px",
+            overflowY: "auto",
+            paddingRight: "5px",
+            scrollbarWidth: "thin",
+          }}
+        >
+          {description}
+        </Card.Description>
+      </Card.Content>
     </Card>
   );
 }
