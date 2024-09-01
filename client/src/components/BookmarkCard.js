@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Card,
   CardMeta,
@@ -8,12 +8,20 @@ import {
   Image,
   Icon,
   Label,
+  Button,
+  Grid,
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
-function BookmarkCard({ bookmark: { image, url, title, description } }) {
+import { AuthContext } from "../context/auth";
+import DeleteButton from "./DeleteButton";
+
+function BookmarkCard({
+  bookmark: { id, image, url, title, description, username },
+}) {
+  const { user } = useContext(AuthContext);
   return (
-    <Card fluidstyle={{ width: "300px", height: "400px", overflow: "hidden" }}>
+    <Card fluid style={{ width: "300px", height: "300px", overflow: "hidden" }}>
       <div
         style={{
           width: "100%",
@@ -30,6 +38,10 @@ function BookmarkCard({ bookmark: { image, url, title, description } }) {
       </div>
       <Card.Content>
         <Card.Header
+          as="a"
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
           style={{
             fontSize: "16px",
             whiteSpace: "nowrap",
@@ -43,8 +55,9 @@ function BookmarkCard({ bookmark: { image, url, title, description } }) {
           style={{
             fontSize: "14px",
             whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
+            overflowY: "auto",
+            paddingRight: "5px",
+            scrollbarWidth: "thin",
           }}
         >
           {title}
@@ -60,6 +73,17 @@ function BookmarkCard({ bookmark: { image, url, title, description } }) {
         >
           {description}
         </Card.Description>
+      </Card.Content>
+      <Card.Content extra>
+        {user && (
+          <Grid>
+            <Grid.Row>
+              <Grid.Column textAlign="right" style={{ marginBottom: 20 }}>
+                <DeleteButton bookmarkId={id} />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        )}
       </Card.Content>
     </Card>
   );

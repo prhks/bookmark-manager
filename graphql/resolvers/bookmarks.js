@@ -37,6 +37,15 @@ module.exports = {
         throw new Error("Url must not be empty");
       }
 
+      // Check if the URL already exists in the database
+      const existingBookmark = await Bookmark.findOne({
+        url,
+        username: user.username,
+      });
+      if (existingBookmark) {
+        throw new Error("Bookmark for this URL already exists.");
+      }
+
       // Fetch the HTML content of the URL
       let html;
       try {
